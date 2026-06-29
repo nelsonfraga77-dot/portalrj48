@@ -125,7 +125,6 @@
     </footer>
 
     <!-- SISTEMA DE BUSCA PRÓPRIO INTEGRADO -->
-    <script>
 function executarBusca() {
     const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
     if (campo && campo.value.trim() !== "") {
@@ -151,6 +150,68 @@ document.addEventListener("DOMContentLoaded", function() {
         botao.setAttribute("onclick", "executarBusca()");
     }
 });
+ <!-- SEÇÃO DA BÍBLIA E SÍMBOLOS SAGRADOS -->
+  <!-- SEÇÃO DA BÍBLIA E SÍMBOLOS SAGRADOS -->
+    <div style="text-align: center; margin-top: 40px; padding: 20px; font-family: sans-serif;">
+        <!-- Símbolos Sagrados Visual -->
+        <div style="font-size: 50px; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));">
+            <span title="Bíblia Sagrada">📖</span>
+            <span title="A Cruz">✝️</span>
+            <span title="Sarça Ardente" style="animation: pulse 1.5s infinite alternate;">🔥</span>
+        </div>
+
+        <h2 style="color: #ffffff; font-size: 24px; margin-bottom: 15px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">Espaço da Palavra de Deus</h2>
+        <p style="color: #e0e0e0; margin-bottom: 25px;">Escolha como você deseja se conectar com a Bíblia Sagrada hoje:</p>
+
+        <!-- Botões de Acesso -->
+        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+            <!-- Botão Bíblia Lida -->
+            <a href="https://www.bibliaonline.com.br/" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
+                📖 Ler a Bíblia Online
+            </a>
+            <!-- Botão Bíblia Falada (Áudio) -->
+            <a href="https://www.youtube.com/results?search_query=biblia+falada+em+audio" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
+                🔊 Ouvir a Bíblia (Áudio)
+            </a>
+        </div>
+    </div>
+
+    <!-- Estilo para fazer o fogo da sarça pulsar levemente -->
+    <style>
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px #ff4500); }
+            100% { transform: scale(1.15); filter: drop-shadow(0 0 12px #ff8c00); }
+        }
+    </style>
+
+    <!-- INÍCIO DA PROGRAMAÇÃO DA BUSCA (ORGANIZADO) -->
+    <script>
+        function executarBusca() {
+            const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
+            if (campo && campo.value.trim() !== "") {
+                const termo = campo.value;
+                const urlBusca = "https://www.youtube.com/results?search_query=" + encodeURIComponent(termo);
+                window.open(urlBusca, '_blank');
+            }
+        }
+
+        // Ativa a busca ao apertar Enter
+        document.addEventListener("DOMContentLoaded", function() {
+            const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
+            const botao = document.querySelector('button');
+
+            if (campo) {
+                campo.addEventListener("keypress", function(e) {
+                    if (e.key === "Enter") {
+                        executarBusca();
+                    }
+                });
+            }
+
+            if (botao) {
+                botao.setAttribute("onclick", "executarBusca()");
+            }
+        });
     </script>
 </body>
 </html>
