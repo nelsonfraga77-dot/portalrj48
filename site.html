@@ -126,34 +126,31 @@
 
     <!-- SISTEMA DE BUSCA PRÓPRIO INTEGRADO -->
     <script>
-        function executarBusca() {
-            var termo = document.getElementById('campoPesquisa').value.toLowerCase().trim();
-            var posts = document.getElementsByClassName('card-post');
-            var blocoMeio = document.getElementById('blocoAnuncioMeio');
+function executarBusca() {
+    const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
+    if (campo && campo.value.trim() !== "") {
+        const termo = campo.value;
+        const urlBusca = "https://www.youtube.com/results?search_query=" + encodeURIComponent(termo);
+        window.open(urlBusca, '_blank');
+    }
+}
 
-            for (var i = 0; i < posts.length; i++) {
-                var tags = posts[i].getAttribute('data-tags');
-                
-                if (termo === "") {
-                    posts[i].style.display = "block";
-                    if(blocoMeio) blocoMeio.style.display = "block";
-                } else {
-                    if (tags.includes(termo)) {
-                        posts[i].style.display = "block";
-                    } else {
-                        posts[i].style.display = "none";
-                    }
-                    if(blocoMeio) blocoMeio.style.display = "none";
-                }
-            }
-        }
-
-        // Executa a busca ao apertar Enter
-        document.getElementById('campoPesquisa').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
+// Ativa a busca ao apertar Enter
+document.addEventListener("DOMContentLoaded", function() {
+    const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
+    const botao = document.querySelector('button');
+    
+    if (campo) {
+        campo.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
                 executarBusca();
             }
         });
+    }
+    if (botao) {
+        botao.setAttribute("onclick", "executarBusca()");
+    }
+});
     </script>
 </body>
 </html>
