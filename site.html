@@ -2,158 +2,17 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal RJ48</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        rjazul: '#0A2360',
-                        rjouro: '#D4AF37',
-                        rjclaro: '#F8F5E9',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        .text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-        .fundo-cruz {
-            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);
-            background-size: 120px 120px;
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px #ff4500); }
+            100% { transform: scale(1.15); filter: drop-shadow(0 0 12px #ff8c00); }
         }
-        .sombra-dourada { box-shadow: 0 4px 20px rgba(212,175,55,0.25); }
     </style>
-
-    <!-- Código do Google AdSense — depois da aprovação você troca o código -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
-     crossorigin="anonymous"></script>
 </head>
 <body class="bg-gradient-to-br from-rjazul via-[#051842] to-rjazul min-h-screen fundo-cruz">
 
-    <header class="pt-10 pb-6 px-4 text-center">
-        <h1 class="text-[clamp(2rem,5vw,3rem)] font-bold text-rjouro text-shadow">PORTAL RJ48</h1>
-        <p class="text-white/90 text-lg mt-2 max-w-2xl mx-auto">Mensagens Bíblicas, Estudos e Louvores para o seu dia a dia</p>
-    </header>
-
-    <!-- BARRA DE BUSCA OPERACIONAL -->
-    <div class="max-w-3xl mx-auto px-4 mb-8">
-        <div class="bg-white/95 rounded-full p-2 flex items-center gap-2 sombra-dourada">
-            <i class="fa fa-search text-rjazul ml-4"></i>
-            <input type="text" id="campoPesquisa" placeholder="Busque: Paz, Salmos, Harpa, Sarça..." class="flex-1 outline-none bg-transparent text-rjazul px-2 py-1">
-            <button onclick="executarBusca()" class="bg-rjouro text-rjazul px-8 py-2 rounded-full font-semibold hover:bg-yellow-500 transition-colors">PESQUISAR</button>
-        </div>
-    </div>
-
-    <!-- Anúncio 1 - Topo -->
-    <div class="max-w-5xl mx-auto px-4 mb-8">
-        <div class="bg-white/10 border border-rjouro/30 rounded-xl p-4 text-center">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-0000000000000000"
-                 data-ad-slot="1234567890"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-        </div>
-    </div>
-
-    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-6">
-        <!-- ÁREA CENTRAL DE CONTEÚDO -->
-        <div class="md:col-span-2 space-y-6" id="containerMensagens">
-            
-            <!-- MENSAGEM 1 -->
-            <div class="card-post bg-white/95 rounded-xl p-6 sombra-dourada border border-rjouro/20" data-tags="paz ansiedade preocupacoes salmos senhor conforto fe">
-                <span class="text-rjouro font-bold">📖 Mensagem de Fé</span>
-                <h3 class="text-xl font-bold text-rjazul mt-2">O Descanso na Verdadeira Paz</h3>
-                <p class="text-gray-700 mt-3">
-                    Nos dias de hoje, a ansiedade e as preocupações tentam roubar a nossa calma. Mas a verdadeira paz vem de confiar plenamente no Senhor.
-                </p>
-                <p class="italic text-rjazul/80 border-l-2 border-rjouro pl-3 mt-4">"Em paz me deito e logo adormeço, pois só tu, Senhor, me fazes habititar em segurança." — Salmos 4:8</p>
-            </div>
-
-            <!-- Anúncio 2 - Entre conteúdos -->
-            <div id="blocoAnuncioMeio" class="bg-white/10 border border-rjouro/30 rounded-xl p-4 text-center">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-0000000000000000"
-                     data-ad-slot="1234567891"
-                     data-ad-format="auto"></ins>
-                <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-            </div>
-
-            <!-- MENSAGEM 2 -->
-            <div class="card-post bg-white/95 rounded-xl p-6 sombra-dourada border border-rjouro/20" data-tags="sarca moises presenca deus gracioso guia fogo">
-                <span class="text-rjouro font-bold">🔥 A Sarça que Arde</span>
-                <h3 class="text-xl font-bold text-rjazul mt-2">Presença de Deus</h3>
-                <p class="text-gray-700 mt-3">
-                    Assim como a sarça que Moisés viu, a presença do Senhor brilha, aquece e guia, sem nunca se apagar. Sua graça é suficiente para todos os dias.
-                </p>
-            </div>
-        </div>
-
-        <!-- BARRA LATERAL -->
-        <div class="space-y-6">
-            <div class="bg-white/95 rounded-xl p-5 text-center sombra-dourada">
-                <h4 class="text-rjazul font-bold">🤝 Patrocinador</h4>
-                <p class="text-gray-600 mt-2">Espaço para parcerias</p>
-            </div>
-
-            <!-- Anúncio 3 - Lateral -->
-            <div class="bg-white/10 border border-rjouro/30 rounded-xl p-4 text-center">
-                <ins class="adsbygoogle"
-                     style="display:block"
-                     data-ad-client="ca-pub-0000000000000000"
-                     data-ad-slot="1234567892"
-                     data-ad-format="auto"></ins>
-                <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
-            </div>
-
-            <div class="bg-gradient-to-br from-rjazul/90 to-rjazul/70 p-5 rounded-xl text-center border border-rjouro/30">
-                <h4 class="text-rjouro font-bold">📖 Versículo do Dia</h4>
-                <p class="text-white mt-3 italic">"Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."</p>
-                <p class="text-rjouro/90 mt-2">Jeremias 29:11</p>
-            </div>
-        </div>
-    </div>
-
-    <footer class="mt-12 py-6 border-t border-rjouro/20 text-center text-white/70">
-        © 2026 Portal RJ48 | Desenvolvido por Nelson Luiz Fraga da Costa
-    </footer>
-
-    <!-- SISTEMA DE BUSCA PRÓPRIO INTEGRADO -->
-function executarBusca() {
-    const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
-    if (campo && campo.value.trim() !== "") {
-        const termo = campo.value;
-        const urlBusca = "https://www.youtube.com/results?search_query=" + encodeURIComponent(termo);
-        window.open(urlBusca, '_blank');
-    }
-}
-
-// Ativa a busca ao apertar Enter
-document.addEventListener("DOMContentLoaded", function() {
-    const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
-    const botao = document.querySelector('button');
-    
-    if (campo) {
-        campo.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                executarBusca();
-            }
-        });
-    }
-    if (botao) {
-        botao.setAttribute("onclick", "executarBusca()");
-    }
-});
- <!-- SEÇÃO DA BÍBLIA E SÍMBOLOS SAGRADOS -->
-  <!-- SEÇÃO DA BÍBLIA E SÍMBOLOS SAGRADOS -->
     <div style="text-align: center; margin-top: 40px; padding: 20px; font-family: sans-serif;">
-        <!-- Símbolos Sagrados Visual -->
         <div style="font-size: 50px; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));">
             <span title="Bíblia Sagrada">📖</span>
             <span title="A Cruz">✝️</span>
@@ -163,28 +22,16 @@ document.addEventListener("DOMContentLoaded", function() {
         <h2 style="color: #ffffff; font-size: 24px; margin-bottom: 15px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">Espaço da Palavra de Deus</h2>
         <p style="color: #e0e0e0; margin-bottom: 25px;">Escolha como você deseja se conectar com a Bíblia Sagrada hoje:</p>
 
-        <!-- Botões de Acesso -->
         <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <!-- Botão Bíblia Lida -->
             <a href="https://www.bibliaonline.com.br/" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
                 📖 Ler a Bíblia Online
             </a>
-            <!-- Botão Bíblia Falada (Áudio) -->
             <a href="https://www.youtube.com/results?search_query=biblia+falada+em+audio" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
                 🔊 Ouvir a Bíblia (Áudio)
             </a>
         </div>
     </div>
 
-    <!-- Estilo para fazer o fogo da sarça pulsar levemente -->
-    <style>
-        @keyframes pulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 2px #ff4500); }
-            100% { transform: scale(1.15); filter: drop-shadow(0 0 12px #ff8c00); }
-        }
-    </style>
-
-    <!-- INÍCIO DA PROGRAMAÇÃO DA BUSCA (ORGANIZADO) -->
     <script>
         function executarBusca() {
             const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
@@ -195,19 +42,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        // Ativa a busca ao apertar Enter
         document.addEventListener("DOMContentLoaded", function() {
             const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
             const botao = document.querySelector('button');
-
             if (campo) {
                 campo.addEventListener("keypress", function(e) {
-                    if (e.key === "Enter") {
-                        executarBusca();
-                    }
+                    if (e.key === "Enter") executarBusca();
                 });
             }
-
             if (botao) {
                 botao.setAttribute("onclick", "executarBusca()");
             }
