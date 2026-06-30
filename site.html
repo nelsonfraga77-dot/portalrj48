@@ -1,63 +1,79 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal da Fé - Louvores e Palavra</title>
+    <title>Portal da Fé</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Estilos incluídos diretamente aqui para não dar erro */
-        body { font-family: 'Arial', sans-serif; line-height: 1.6; margin: 0; background-color: #f4f4f4; color: #333; }
-        header { background: #2c3e50; color: #fff; padding: 20px; text-align: center; }
-        nav ul { padding: 0; list-style: none; }
-        nav ul li { display: inline; margin: 0 15px; }
-        nav ul li a { color: #fff; text-decoration: none; font-weight: bold; }
-        section { padding: 20px; background: #fff; margin: 20px auto; border-radius: 8px; max-width: 800px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        button { background: #27ae60; color: #fff; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; font-size: 16px; }
-        button:hover { background: #219150; }
-        footer { text-align: center; padding: 20px; font-size: 0.9em; color: #777; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; color: #333; margin: 0; }
+        header { background: #2c3e50; color: #fff; padding: 20px; text-align: center; border-bottom: 5px solid #e74c3c; }
+        
+        .contato-patrocinio { background: #2c3e50; color: #fff; padding: 10px; text-align: center; font-size: 0.9em; }
+        .contato-patrocinio a { color: #f1c40f; text-decoration: none; margin: 0 10px; }
+
+        .patrocinio { background: #fffde7; border: 2px dashed #f1c40f; padding: 15px; margin: 20px auto; max-width: 800px; text-align: center; border-radius: 8px; }
+        .item-busca { padding: 20px; background: #fff; margin: 20px auto; max-width: 800px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 10px; }
+        a { color: #2c3e50; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Portal da Fé</h1>
-        <nav>
+    <header><h1>Portal da Fé</h1></header>
+
+    <div class="contato-patrocinio">
+        <span>Quer anunciar aqui? Entre em contato:</span>
+        <a href="mailto:nelsonfraga77@gmail.com"><i class="fas fa-envelope"></i> E-mail</a>
+        <a href="https://wa.me/5521988587372" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+
+    <div class="patrocinio">
+        <p><strong>Espaço para Patrocinadores</strong></p>
+        <p>Anuncie conosco: fale via WhatsApp ou E-mail acima!</p>
+    </div>
+
+    <div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+        <input type="text" id="campoBusca" onkeyup="buscarConteudo()" placeholder="🔍 Pesquisar louvores, fotos ou palavras...">
+    </div>
+
+    <main id="conteudoSite">
+        <section class="item-busca">
+            <h2><i class="fas fa-bible"></i> Palavra da Semana</h2>
+            <p><strong>Tema:</strong> A esperança no Senhor.</p>
+            <p>Texto: "Espera no Senhor, anima-te, e ele fortalecerá o teu coração..." (Salmos 27:14)</p>
+        </section>
+
+        <section class="item-busca">
+            <h2><i class="fas fa-book-reader"></i> Bíblia Online</h2>
+            <iframe src="https://www.bibliaonline.com.br" width="100%" height="400px" frameborder="0"></iframe>
+        </section>
+
+        <section class="item-busca">
+            <h2><i class="fas fa-music"></i> Louvores</h2>
             <ul>
-                <li><a href="#home">Início</a></li>
-                <li><a href="#biblia">Bíblia Online</a></li>
-                <li><a href="#louvores">Louvores</a></li>
-                <li><a href="#palavra">Palavra do Dia</a></li>
+                <li><a href="#" download>Nome do Louvor - Clique para baixar</a></li>
             </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="home">
-            <h2>Bem-vindo à nossa Comunidade</h2>
-            <p>Que a paz do Senhor esteja com você. Utilize este espaço para ler a Palavra e se edificar.</p>
         </section>
 
-        <section id="biblia">
-            <h2>Bíblia Online</h2>
-            <p>Clique abaixo para ler as Sagradas Escrituras:</p>
-            <button onclick="window.open('https://www.bibliaonline.com.br', '_blank')">Abrir Bíblia Completa</button>
-        </section>
-
-        <section id="louvores">
-            <h2>Louvores</h2>
-            <p>Em breve, teremos uma lista especial de louvores para download.</p>
-        </section>
-        
-        <section id="palavra">
-            <h2>Palavra do Dia</h2>
-            <p>Medite na palavra de Deus todos os dias.</p>
+        <section class="item-busca">
+            <h2><i class="fas fa-images"></i> Galeria de Fotos e Pregações</h2>
+            <ul>
+                <li><a href="LINK_DO_GOOGLE_DRIVE" target="_blank">Ver Álbum de Fotos</a></li>
+                <li><a href="LINK_DO_GOOGLE_DRIVE" target="_blank">Assistir Pregação</a></li>
+            </ul>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2026 Portal da Fé - Todos os direitos reservados.</p>
-    </footer>
-
+    <script>
+        function buscarConteudo() {
+            let input = document.getElementById('campoBusca').value.toUpperCase();
+            let secoes = document.getElementsByClassName('item-busca');
+            for (let i = 0; i < secoes.length; i++) {
+                secoes[i].style.display = secoes[i].innerText.toUpperCase().includes(input) ? "" : "none";
+            }
+        }
+    </script>
 </body>
 </html>
