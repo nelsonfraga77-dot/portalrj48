@@ -2,78 +2,517 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal da Fé</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f4f4; color: #333; margin: 0; }
-        header { background: #2c3e50; color: #fff; padding: 20px; text-align: center; border-bottom: 5px solid #e74c3c; }
-        
-        .contato-patrocinio { background: #2c3e50; color: #fff; padding: 10px; text-align: center; font-size: 0.9em; }
-        .contato-patrocinio a { color: #f1c40f; text-decoration: none; margin: 0 10px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
+            background: #fefcf8; color: #333; line-height: 1.7; position: relative; 
+        }
 
-        .patrocinio { background: #fffde7; border: 2px dashed #f1c40f; padding: 15px; margin: 20px auto; max-width: 800px; text-align: center; border-radius: 8px; }
-        .item-busca { padding: 20px; background: #fff; margin: 20px auto; max-width: 800px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 5px; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 10px; }
-        a { color: #2c3e50; text-decoration: none; font-weight: bold; }
+        /* Decoração de fundo */
+        .decoracao-fundo {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.06; pointer-events: none;
+        }
+        .decoracao-fundo i { font-size: 120px; color: #d4af37; position: absolute; }
+        .biblia-1 { top: 15%; left: 5%; }
+        .biblia-2 { bottom: 20%; right: 8%; }
+        .cruz-1 { top: 40%; right: 10%; }
+        .cruz-2 { bottom: 10%; left: 12%; }
+        .cruz-3 { top: 70%; left: 6%; }
+
+        /* Cabeçalho */
+        header { 
+            background: linear-gradient(145deg, #1e3a5f, #2c3e50); color: #fff;
+            padding: 35px 20px; text-align: center; border-bottom: 5px solid #d4af37;
+            font-size: 1.8em; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        header i { margin: 0 18px; color: #f1c40f; font-size: 1.3em; transition: transform 0.3s; }
+        header i:hover { transform: scale(1.15); }
+
+        /* Contato */
+        .contato-patrocinio { 
+            background: #2c3e50; color: #fff; padding: 14px 20px; text-align: center;
+            font-size: 0.98em; box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .contato-patrocinio a { 
+            color: #f1c40f; text-decoration: none; margin: 0 12px; font-weight: 500;
+            transition: all 0.25s;
+        }
+        .contato-patrocinio a:hover { color: #fff; text-decoration: underline; }
+
+        /* Patrocínio */
+        .patrocinio { 
+            background: #fffbeb; border: 2px dashed #d4af37; padding: 22px;
+            margin: 28px auto; max-width: 850px; text-align: center; border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        /* Busca */
+        .container-busca { max-width: 850px; margin: 25px auto; padding: 0 20px; }
+        input { 
+            width: 100%; padding: 15px 20px; border: 1px solid #ddd; border-radius: 10px;
+            font-size: 1.05em; transition: all 0.3s; box-shadow: inset 0 1px 4px rgba(0,0,0,0.05);
+        }
+        input:focus { outline: none; border-color: #d4af37; box-shadow: 0 0 0 3px rgba(212,175,55,0.2); }
+
+        /* Seções */
+        .item-busca { 
+            padding: 28px; background: #fff; margin: 24px auto; max-width: 850px;
+            border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            border-left: 4px solid #d4af37; transition: transform 0.25s;
+        }
+        .item-busca:hover { transform: translateY(-2px); }
+
+        .item-busca h2 { 
+            color: #2c3e50; margin-bottom: 20px; font-size: 1.5em;
+            display: flex; align-items: center; gap: 10px;
+            border-bottom: 2px solid #f1c40f; padding-bottom: 8px;
+        }
+
+        /* Versículos */
+        .versiculo {
+            font-style: italic; color: #2c3e50; font-size: 1.1em;
+            padding: 18px; background: #fffbeb; border-left: 4px solid #d4af37;
+            border-radius: 6px; margin: 15px 0;
+        }
+        .versiculo small { display: block; margin-top: 8px; font-weight: bold; color: #b8860b; }
+
+        /* Botões */
+        .btn-biblia, .btn-enviar { 
+            display: inline-block; background: linear-gradient(145deg, #b8860b, #d4af37);
+            color: #fff; padding: 14px 30px; text-decoration: none; border-radius: 8px;
+            font-weight: bold; border: none; font-size: 1em; cursor: pointer;
+            transition: all 0.3s; box-shadow: 0 3px 8px rgba(212,175,55,0.3);
+        }
+        .btn-biblia:hover, .btn-enviar:hover { 
+            background: #a67c00; transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(212,175,55,0.35);
+        }
+
+        /* Formulário Oração */
+        .form-oracao { display: flex; flex-direction: column; gap: 18px; margin-top: 20px; }
+        .form-oracao .campo { display: flex; flex-direction: column; gap: 6px; }
+        .form-oracao label { font-weight: 500; color: #2c3e50; }
+        .form-oracao input, .form-oracao textarea { 
+            padding: 14px; border: 1px solid #e0e0e0; border-radius: 8px;
+            font-size: 1em; background: #fdfdfd; transition: all 0.3s;
+        }
+        .form-oracao input:focus, .form-oracao textarea:focus { 
+            outline: none; border-color: #d4af37; box-shadow: 0 0 0 3px rgba(212,175,55,0.15);
+            background: #fff;
+        }
+        .form-oracao textarea { min-height: 130px; resize: vertical; line-height: 1.6; }
+        .info-oracao { 
+            font-size: 0.9em; color: #666; margin-top: 10px; font-style: italic;
+            text-align: center; padding: 10px; background: #fef9e7; border-radius: 6px;
+        }
+        .confirmacao { 
+            display: none; margin-top: 15px; padding: 15px; background: #e8f5e9;
+            border-left: 4px solid #2e7d32; border-radius: 6px; color: #1b5e20;
+            font-weight: 500; text-align: center;
+        }
+
+        /* Louvores */
+        .lista-louvores { list-style: none; margin-top: 15px; display: grid; gap: 10px; }
+        .lista-louvores li { 
+            padding: 10px; background: #fdf9e9; border-radius: 6px;
+            border-left: 3px solid #d4af37;
+        }
+
+        /* Caça-Palavras */
+        .grade-caca { 
+            display: grid; grid-template-columns: repeat(10, 35px); gap: 4px;
+            justify-content: center; margin: 20px 0;
+        }
+        .letra { 
+            width: 35px; height: 35px; background: #fdf9e9; border: 1px solid #d4af37;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; border-radius: 4px;
+        }
+        .palavras-busca { text-align: center; margin-top: 15px; color: #2c3e50; font-weight: 500; }
+
+        /* Livros e Capítulos */
+        .grade-biblia { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 20px; }
+        .coluna-biblia h3 { 
+            color: #2c3e50; font-size: 1.2em; padding-bottom: 8px;
+            border-bottom: 2px solid #f1c40f; margin-bottom: 15px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .livro { margin-bottom: 15px; }
+        .titulo-livro { 
+            background: #fdf9e9; padding: 8px 12px; border-radius: 6px;
+            border-left: 3px solid #d4af37; font-weight: bold;
+            color: #2c3e50; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .titulo-livro:hover { background: #fffbeb; }
+        .capitulos { 
+            display: none; margin-top: 8px; padding: 8px;
+            background: #fff; border-radius: 6px; border: 1px solid #eee;
+            grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+            gap: 6px;
+        }
+        .capitulos a { 
+            display: block; text-align: center; padding: 6px 0;
+            background: #fdf9e9; border-radius: 4px; color: #2c3e50;
+            text-decoration: none; font-size: 0.9em; font-weight: 500;
+            transition: all 0.2s;
+        }
+        .capitulos a:hover { background: #fffbeb; color: #b8860b; }
+
+        /* Responsivo */
+        @media (max-width: 600px) {
+            .grade-biblia { grid-template-columns: 1fr; }
+            header { font-size: 1.5em; padding: 25px 15px; }
+            .capitulos { grid-template-columns: repeat(auto-fill, minmax(28px, 1fr)); }
+        }
     </style>
 </head>
 <body>
 
-    <header><h1>Portal da Fé</h1></header>
+    <!-- Decoração -->
+    <div class="decoracao-fundo">
+        <i class="fas fa-bible biblia-1"></i>
+        <i class="fas fa-bible biblia-2"></i>
+        <i class="fas fa-cross cruz-1"></i>
+        <i class="fas fa-cross cruz-2"></i>
+        <i class="fas fa-cross cruz-3"></i>
+    </div>
 
+    <!-- Cabeçalho -->
+    <header>
+        <i class="fas fa-cross"></i> Portal da Fé <i class="fas fa-dove"></i>
+    </header>
+
+    <!-- Contato -->
     <div class="contato-patrocinio">
         <span>Quer anunciar aqui? Entre em contato:</span>
         <a href="mailto:nelsonfraga77@gmail.com"><i class="fas fa-envelope"></i> E-mail</a>
-        <a href="https://wa.me/5521988587372" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+        <a href="https://wa.me/5521988587372" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     </div>
 
     <div class="patrocinio">
-        <p><strong>Espaço para Patrocinadores</strong></p>
-        <p>Anuncie conosco: fale via WhatsApp ou E-mail acima!</p>
+        <p><strong>📢 Espaço para Patrocinadores</strong></p>
     </div>
 
-    <div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
-        <input type="text" id="campoBusca" onkeyup="buscarConteudo()" placeholder="🔍 Pesquisar louvores, fotos ou palavras...">
+    <div class="container-busca">
+        <input type="text" id="campoBusca" placeholder="🔍 Pesquisar versículos, temas, orações...">
     </div>
 
-    <main id="conteudoSite">
+    <main>
+        <!-- Palavra do Dia -->
+        <section class="item-busca">
+            <h2><i class="fas fa-sun"></i> Palavra do Dia</h2>
+            <div class="versiculo">
+                "Porque eu bem sei os pensamentos que penso de vós, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."
+                <small>Jeremias 29:11</small>
+            </div>
+            <p>Deus tem um plano perfeito para a sua vida! Confie nEle, mesmo quando não entender o caminho.</p>
+        </section>
+
+        <!-- Palavra da Semana -->
         <section class="item-busca">
             <h2><i class="fas fa-bible"></i> Palavra da Semana</h2>
             <p><strong>Tema:</strong> A esperança no Senhor.</p>
-            <p>Texto: "Espera no Senhor, anima-te, e ele fortalecerá o teu coração..." (Salmos 27:14)</p>
+            <div class="versiculo">
+                "Livra-me, peço-te, da mão de meu irmão, da mão de Esaú; porque eu o temo; porventura não venha, e me fira, e a mãe com os filhos."
+                <small>Gênesis 32:11</small>
+            </div>
+            <div class="versiculo">
+                "Mas por isso alcancei misericórdia, para que em mim, que sou o principal, Jesus Cristo mostrasse toda a sua longanimidade, para exemplo dos que haviam de crer nele para a vida eterna."
+                <small>1 Timóteo 1:16</small>
+            </div>
         </section>
 
+        <!-- Pedido de Oração -->
         <section class="item-busca">
-            <h2><i class="fas fa-book-reader"></i> Bíblia Online</h2>
-            <iframe src="https://www.bibliaonline.com.br" width="100%" height="400px" frameborder="0"></iframe>
+            <h2><i class="fas fa-hands-praying"></i> Pedido de Oração</h2>
+            <p>"Orai uns pelos outros, para que sejais curados. A oração feita por um justo pode muito em seus efeitos." — Tiago 5:16</p>
+            <form class="form-oracao" id="formOracao" action="mailto:nelsonfraga77@gmail.com" method="POST" enctype="text/plain">
+                <div class="campo"><label>Seu nome (opcional):</label><input type="text" name="nome" placeholder="Ex: Maria Silva"></div>
+                <div class="campo"><label>WhatsApp (opcional):</label><input type="tel" name="contato" placeholder="(21) 98858-7372"></div>
+                <div class="campo"><label>Seu pedido *:</label><textarea name="pedido" required placeholder="Escreva aqui sua oração..."></textarea></div>
+                <button type="submit" class="btn-enviar"><i class="fas fa-paper-plane"></i> Enviar Pedido</button>
+                <div class="info-oracao"><i class="fas fa-lock"></i> Dados tratados com sigilo.</div>
+            </form>
+            <div class="confirmacao" id="mensagemConfirmacao">✅ Pedido enviado! Estaremos orando por você.</div>
         </section>
 
+        <!-- Louvores -->
         <section class="item-busca">
-            <h2><i class="fas fa-music"></i> Louvores</h2>
-            <ul>
-                <li><a href="#" download>Nome do Louvor - Clique para baixar</a></li>
+            <h2><i class="fas fa-music"></i> Louvores e Hinos</h2>
+            <ul class="lista-louvores">
+                <li>✅ A Alegria do Senhor é a Nossa Força</li>
+                <li>✅ Grande é o Senhor e Muito Digno de Louvor</li>
+                <li>✅ Quando a Esperança Renasce</li>
+                <li>✅ Deus é Fiel em Todas as Suas Vias</li>
+                <li>✅ Eu Creio na Ressurreição</li>
+                <li>✅ O Senhor é o Meu Pastor</li>
             </ul>
         </section>
 
+        <!-- Caça-Palavras -->
         <section class="item-busca">
-            <h2><i class="fas fa-images"></i> Galeria de Fotos e Pregações</h2>
-            <ul>
-                <li><a href="LINK_DO_GOOGLE_DRIVE" target="_blank">Ver Álbum de Fotos</a></li>
-                <li><a href="LINK_DO_GOOGLE_DRIVE" target="_blank">Assistir Pregação</a></li>
-            </ul>
+            <h2><i class="fas fa-puzzle-piece"></i> Caça-Palavras Evangélico</h2>
+            <div class="grade-caca">
+                <div class="letra">F</div><div class="letra">É</div><div class="letra">J</div><div class="letra">E</div><div class="letra">S</div><div class="letra">U</div><div class="letra">S</div><div class="letra">L</div><div class="letra">A</div><div class="letra">O</div>
+                <div class="letra">A</div><div class="letra">O</div><div class="letra">R</div><div class="letra">A</div><div class="letra">Ç</div><div class="letra">Ã</div><div class="letra">O</div><div class="letra">U</div><div class="letra">M</div><div class="letra">R</div>
+                <div class="letra">M</div><div class="letra">C</div><div class="letra">R</div><div class="letra">E</div><div class="letra">N</div><div class="letra">Ç</div><div class="letra">A</div><div class="letra">V</div><div class="letra">O</div><div class="letra">A</div>
+                <div class="letra">A</div><div class="letra">R</div><div class="letra">E</div><div class="letra">D</div><div class="letra">E</div><div class="letra">M</div><div class="letra">P</div><div class="letra">O</div><div class="letra">R</div><div class="letra">Ç</div>
+                <div class="letra">F</div><div class="letra">A</div><div class="letra">M</div><div class="letra">Í</div><div class="letra">L</div><div class="letra">I</div><div class="letra">A</div><div class="letra">R</div><div class="letra">T</div><div class="letra">Ã</div>
+                <div class="letra">I</div><div class="letra">S</div><div class="letra">A</div><div class="letra">L</div><div class="letra">V</div><div class="letra">A</div><div class="letra">Ç</div><div class="letra">Ã</div><div class="letra">U</div><div class="letra">O</div>
+                <div class="letra">T</div><div class="letra">P</div><div class="letra">A</div><div class="letra">Z</div><div class="letra">D</div><div class="letra">E</div><div class="letra">U</div><div class="letra">S</div><div class="letra">G</div><div class="letra">S</div>
+                <div class="letra">H</div><div class="letra">E</div><div class="letra">S</div><div class="letra">P</div><div class="letra">E</div><div class="letra">R</div><div class="letra">A</div><div class="letra">N</div><div class="letra">Ç</div><div class="letra">A</div>
+                <div class="letra">O</div><div class="letra">L</div><div class="letra">O</div><div class="letra">U</div><div class="letra">V</div><div class="letra">O</div><div class="letra">R</div><div class="letra">E</div><div class="letra">S</div><div class="letra">R</div>
+                <div class="letra">S</div><div class="letra">G</div><div class="letra">R</div><div class="letra">A</div><div class="letra">Ç</div><div class="letra">A</div><div class="letra">P</div><div class="letra">A</div><div class="letra">Z</div><div class="letra">A</div>
+            </div>
+            <div class="palavras-busca">Palavras: FÉ, JESUS, ORAÇÃO, CRENÇA, FAMÍLIA, SALVAÇÃO, PAZ, ESPERANÇA, LOUVOR, GRAÇA</div>
+        </section>
+
+        <!-- 📖 LIVROS E CAPÍTULOS - AGORA COM SITE SEGURO -->
+        <section class="item-busca">
+            <h2><i class="fas fa-book-open"></i> Livros e Capítulos da Bíblia</h2>
+            <div class="grade-biblia">
+                <!-- Antigo Testamento -->
+                <div class="coluna-biblia">
+                    <h3><i class="fas fa-scroll"></i> Antigo Testamento</h3>
+
+                    <div class="livro">
+                        <div class="titulo-livro" onclick="toggleCapitulos('gn')">Gênesis <i class="fas fa-chevron-down"></i></div>
+                        <div class="capitulos" id="gn">
+                            <a href="https://www.bibliaaqui.com.br/genesis/1" target="_blank" rel="noopener noreferrer">1</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/2" target="_blank" rel="noopener noreferrer">2</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/3" target="_blank" rel="noopener noreferrer">3</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/4" target="_blank" rel="noopener noreferrer">4</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/5" target="_blank" rel="noopener noreferrer">5</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/6" target="_blank" rel="noopener noreferrer">6</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/7" target="_blank" rel="noopener noreferrer">7</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/8" target="_blank" rel="noopener noreferrer">8</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/9" target="_blank" rel="noopener noreferrer">9</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/10" target="_blank" rel="noopener noreferrer">10</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/11" target="_blank" rel="noopener noreferrer">11</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/12" target="_blank" rel="noopener noreferrer">12</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/13" target="_blank" rel="noopener noreferrer">13</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/14" target="_blank" rel="noopener noreferrer">14</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/15" target="_blank" rel="noopener noreferrer">15</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/16" target="_blank" rel="noopener noreferrer">16</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/17" target="_blank" rel="noopener noreferrer">17</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/18" target="_blank" rel="noopener noreferrer">18</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/19" target="_blank" rel="noopener noreferrer">19</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/20" target="_blank" rel="noopener noreferrer">20</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/21" target="_blank" rel="noopener noreferrer">21</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/22" target="_blank" rel="noopener noreferrer">22</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/23" target="_blank" rel="noopener noreferrer">23</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/24" target="_blank" rel="noopener noreferrer">24</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/25" target="_blank" rel="noopener noreferrer">25</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/26" target="_blank" rel="noopener noreferrer">26</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/27" target="_blank" rel="noopener noreferrer">27</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/28" target="_blank" rel="noopener noreferrer">28</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/29" target="_blank" rel="noopener noreferrer">29</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/30" target="_blank" rel="noopener noreferrer">30</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/31" target="_blank" rel="noopener noreferrer">31</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/32" target="_blank" rel="noopener noreferrer">32</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/33" target="_blank" rel="noopener noreferrer">33</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/34" target="_blank" rel="noopener noreferrer">34</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/35" target="_blank" rel="noopener noreferrer">35</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/36" target="_blank" rel="noopener noreferrer">36</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/37" target="_blank" rel="noopener noreferrer">37</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/38" target="_blank" rel="noopener noreferrer">38</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/39" target="_blank" rel="noopener noreferrer">39</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/40" target="_blank" rel="noopener noreferrer">40</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/41" target="_blank" rel="noopener noreferrer">41</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/42" target="_blank" rel="noopener noreferrer">42</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/43" target="_blank" rel="noopener noreferrer">43</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/44" target="_blank" rel="noopener noreferrer">44</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/45" target="_blank" rel="noopener noreferrer">45</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/46" target="_blank" rel="noopener noreferrer">46</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/47" target="_blank" rel="noopener noreferrer">47</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/48" target="_blank" rel="noopener noreferrer">48</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/49" target="_blank" rel="noopener noreferrer">49</a>
+                            <a href="https://www.bibliaaqui.com.br/genesis/50" target="_blank" rel="noopener noreferrer">50</a>
+                        </div>
+                    </div>
+
+                    <div class="livro">
+                        <div class="titulo-livro" onclick="toggleCapitulos('ex')">Êxodo <i class="fas fa-chevron-down"></i></div>
+                        <div class="capitulos" id="ex">
+                            <a href="https://www.bibliaaqui.com.br/exodo/1" target="_blank">1</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/2" target="_blank">2</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/3" target="_blank">3</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/4" target="_blank">4</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/5" target="_blank">5</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/6" target="_blank">6</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/7" target="_blank">7</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/8" target="_blank">8</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/9" target="_blank">9</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/10" target="_blank">10</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/11" target="_blank">11</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/12" target="_blank">12</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/13" target="_blank">13</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/14" target="_blank">14</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/15" target="_blank">15</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/16" target="_blank">16</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/17" target="_blank">17</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/18" target="_blank">18</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/19" target="_blank">19</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/20" target="_blank">20</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/21" target="_blank">21</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/22" target="_blank">22</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/23" target="_blank">23</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/24" target="_blank">24</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/25" target="_blank">25</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/26" target="_blank">26</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/27" target="_blank">27</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/28" target="_blank">28</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/29" target="_blank">29</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/30" target="_blank">30</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/31" target="_blank">31</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/32" target="_blank">32</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/33" target="_blank">33</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/34" target="_blank">34</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/35" target="_blank">35</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/36" target="_blank">36</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/37" target="_blank">37</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/38" target="_blank">38</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/39" target="_blank">39</a>
+                            <a href="https://www.bibliaaqui.com.br/exodo/40" target="_blank">40</a>
+                        </div>
+                    </div>
+
+                    <!-- Adicionei mais livros de exemplo, o resto segue o mesmo padrão -->
+                    <div class="livro">
+                        <div class="titulo-livro" onclick="toggleCapitulos('lv')">Levítico <i class="fas fa-chevron-down"></i></div>
+                        <div class="capitulos" id="lv">
+                            <a href="https://www.bibliaaqui.com.br/levitico/1" target="_blank">1</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/2" target="_blank">2</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/3" target="_blank">3</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/4" target="_blank">4</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/5" target="_blank">5</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/6" target="_blank">6</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/7" target="_blank">7</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/8" target="_blank">8</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/9" target="_blank">9</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/10" target="_blank">10</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/11" target="_blank">11</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/12" target="_blank">12</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/13" target="_blank">13</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/14" target="_blank">14</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/15" target="_blank">15</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/16" target="_blank">16</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/17" target="_blank">17</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/18" target="_blank">18</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/19" target="_blank">19</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/20" target="_blank">20</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/21" target="_blank">21</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/22" target="_blank">22</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/23" target="_blank">23</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/24" target="_blank">24</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/25" target="_blank">25</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/26" target="_blank">26</a>
+                            <a href="https://www.bibliaaqui.com.br/levitico/27" target="_blank">27</a>
+                        </div>
+                    </div>
+
+                    <p style="text-align:center; color:#666; margin-top:15px;">🔽 Clique no nome do livro para ver os capítulos</p>
+                </div>
+
+                <!-- Novo Testamento -->
+                <div class="coluna-biblia">
+                    <h3><i class="fas fa-cross"></i> Novo Testamento</h3>
+
+                    <div class="livro">
+                        <div class="titulo-livro" onclick="toggleCapitulos('mt')">Mateus <i class="fas fa-chevron-down"></i></div>
+                        <div class="capitulos" id="mt">
+                            <a href="https://www.bibliaaqui.com.br/mateus/1" target="_blank">1</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/2" target="_blank">2</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/3" target="_blank">3</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/4" target="_blank">4</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/5" target="_blank">5</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/6" target="_blank">6</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/7" target="_blank">7</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/8" target="_blank">8</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/9" target="_blank">9</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/10" target="_blank">10</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/11" target="_blank">11</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/12" target="_blank">12</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/13" target="_blank">13</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/14" target="_blank">14</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/15" target="_blank">15</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/16" target="_blank">16</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/17" target="_blank">17</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/18" target="_blank">18</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/19" target="_blank">19</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/20" target="_blank">20</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/21" target="_blank">21</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/22" target="_blank">22</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/23" target="_blank">23</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/24" target="_blank">24</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/25" target="_blank">25</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/26" target="_blank">26</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/27" target="_blank">27</a>
+                            <a href="https://www.bibliaaqui.com.br/mateus/28" target="_blank">28</a>
+                        </div>
+                    </div>
+
+                    <div class="livro">
+                        <div class="titulo-livro" onclick="toggleCapitulos('jo')">João <i class="fas fa-chevron-down"></i></div>
+                        <div class="capitulos" id="jo">
+                            <a href="https://www.bibliaaqui.com.br/joao/1" target="_blank">1</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/2" target="_blank">2</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/3" target="_blank">3</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/4" target="_blank">4</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/5" target="_blank">5</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/6" target="_blank">6</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/7" target="_blank">7</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/8" target="_blank">8</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/9" target="_blank">9</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/10" target="_blank">10</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/11" target="_blank">11</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/12" target="_blank">12</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/13" target="_blank">13</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/14" target="_blank">14</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/15" target="_blank">15</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/16" target="_blank">16</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/17" target="_blank">17</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/18" target="_blank">18</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/19" target="_blank">19</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/20" target="_blank">20</a>
+                            <a href="https://www.bibliaaqui.com.br/joao/21" target="_blank">21</a>
+                        </div>
+                    </div>
+
+                    <p style="text-align:center; color:#666; margin-top:15px;">🔽 Clique no nome do livro para ver os capítulos</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Promessas -->
+        <section class="item-busca">
+            <h2><i class="fas fa-hand-holding-heart"></i> Promessas de Deus</h2>
+            <div class="versiculo">"Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei." <small>Mateus 11:28</small></div>
+            <div class="versiculo">"Tudo posso naquele que me fortalece." <small>Filipenses 4:13</small></div>
+            <div class="versiculo">"O Senhor é o meu pastor, nada me faltará." <small>Salmos 23:1</small></div>
+        </section>
+
+        <!-- Botão Geral -->
+        <section class="item-busca" style="text-align:center;">
+            <a href="https://www.bibliaaqui.com.br" target="_blank" rel="noopener noreferrer" class="btn-biblia">
+                <i class="fas fa-book-reader"></i> Ler a Bíblia Completa
+            </a>
         </section>
     </main>
 
+    <!-- Scripts -->
     <script>
-        function buscarConteudo() {
-            let input = document.getElementById('campoBusca').value.toUpperCase();
-            let secoes = document.getElementsByClassName('item-busca');
-            for (let i = 0; i < secoes.length; i++) {
-                secoes[i].style.display = secoes[i].innerText.toUpperCase().includes(input) ? "" : "none";
-            }
+        function toggleCapitulos(id) {
+            const el = document.getElementById(id);
+            el.style.display = el.style.display === 'grid' ? 'none' : 'grid';
         }
-    </script>
-</body>
-</html>
+        const form = document.getElementById('formOracao');
+        const msg = document.getElementById('mensagemConfirmacao');
+        form.addEventListener('submit', () => {
+            setTimeout(() => { msg.style.display = 'block'; form.reset
