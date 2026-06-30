@@ -2,58 +2,286 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Portal RJ48</title>
-    <style>
-        @keyframes pulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 2px #ff4500); }
-            100% { transform: scale(1.15); filter: drop-shadow(0 0 12px #ff8c00); }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                        secondary: '#15803D',
+                        accent: '#B45309',
+                        dark: '#0F172A',
+                        light: '#F8FAFC',
+                        soft: '#EFF6FF'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            }
+            .transition-all {
+                transition: all 0.3s ease;
+            }
+            .palavra {
+                cursor: pointer;
+                user-select: none;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                font-weight: 500;
+            }
+            .selecionada {
+                background-color: #BBF7D0;
+                color: #166534;
+                font-weight: bold;
+                transform: scale(1.05);
+            }
+            .bg-banner {
+                background-image: linear-gradient(rgba(30, 64, 175, 0.78), rgba(21, 128, 61, 0.72)), url('https://images.unsplash.com/photo-1504052434569-70ad5836ab65?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+                background-size: cover;
+                background-position: center;
+            }
+            .hover-lift:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+            }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-rjazul via-[#051842] to-rjazul min-h-screen fundo-cruz">
+<body class="bg-light text-gray-800 font-sans">
 
-    <div style="text-align: center; margin-top: 40px; padding: 20px; font-family: sans-serif;">
-        <div style="font-size: 50px; margin-bottom: 20px; display: flex; justify-content: center; gap: 20px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.3));">
-            <span title="Bíblia Sagrada">📖</span>
-            <span title="A Cruz">✝️</span>
-            <span title="Sarça Ardente" style="animation: pulse 1.5s infinite alternate;">🔥</span>
+    <!-- Cabeçalho Fixo -->
+    <header class="bg-white shadow-lg fixed w-full z-50 transition-all">
+        <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fa fa-cross text-primary text-3xl"></i>
+                <!-- Nome da igreja vazio para você preencher -->
+                <h1 class="text-xl md:text-2xl font-bold text-dark">_________________________</h1>
+            </div>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex gap-8">
+                <a href="#inicio" class="font-medium hover:text-primary transition-all">Início</a>
+                <a href="#recursos" class="font-medium hover:text-primary transition-all">Recursos</a>
+                <a href="#jogos" class="font-medium hover:text-primary transition-all">Jogos</a>
+                <a href="#patrocinio" class="font-medium hover:text-primary transition-all">Apoio</a>
+                <a href="#contato" class="font-medium hover:text-primary transition-all">Contato</a>
+            </nav>
+
+            <!-- Botão Menu Mobile -->
+            <button class="md:hidden text-2xl text-dark" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </button>
         </div>
 
-        <h2 style="color: #ffffff; font-size: 24px; margin-bottom: 15px; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">Espaço da Palavra de Deus</h2>
-        <p style="color: #e0e0e0; margin-bottom: 25px;">Escolha como você deseja se conectar com a Bíblia Sagrada hoje:</p>
-
-        <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-            <a href="https://www.bibliaonline.com.br/" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #ffd700, #b8860b); color: #000000; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
-                📖 Ler a Bíblia Online
-            </a>
-            <a href="https://www.youtube.com/results?search_query=biblia+falada+em+audio" target="_blank" style="text-decoration: none; background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff; font-weight: bold; padding: 12px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 8px;">
-                🔊 Ouvir a Bíblia (Áudio)
-            </a>
+        <!-- Menu Mobile -->
+        <div id="menuMobile" class="hidden bg-white w-full shadow-md">
+            <nav class="flex flex-col p-5 gap-4">
+                <a href="#inicio" class="font-medium hover:text-primary transition-all">Início</a>
+                <a href="#recursos" class="font-medium hover:text-primary transition-all">Recursos</a>
+                <a href="#jogos" class="font-medium hover:text-primary transition-all">Jogos</a>
+                <a href="#patrocinio" class="font-medium hover:text-primary transition-all">Apoio</a>
+                <a href="#contato" class="font-medium hover:text-primary transition-all">Contato</a>
+            </nav>
         </div>
-    </div>
+    </header>
 
+    <!-- Seção Início com Imagem -->
+    <section id="inicio" class="pt-36 pb-24 bg-banner text-white">
+        <div class="container mx-auto px-5 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-shadow">Bem-vindo à Casa de Deus</h2>
+            <p class="text-lg md:text-2xl max-w-4xl mx-auto mb-8 text-shadow leading-relaxed">
+                “Porque onde estiverem dois ou três reunidos em meu nome, aí estou eu no meio deles.”<br>
+                <span class="font-normal italic">— Mateus 18:20</span>
+            </p>
+            <a href="#recursos" class="inline-block bg-white text-primary font-semibold px-8 py-3 rounded-lg shadow-lg hover:bg-gray-100 transition-all">Conheça Nossos Recursos</a>
+        </div>
+    </section>
+
+    <!-- Seção Recursos Espirituais -->
+    <section id="recursos" class="py-20 bg-white">
+        <div class="container mx-auto px-5">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-14 text-dark">📚 Recursos Espirituais</h2>
+            <div class="grid md:grid-cols-2 gap-10">
+
+                <!-- Pesquisa e Download de Louvores -->
+                <div class="bg-soft p-7 rounded-xl shadow hover-lift transition-all">
+                    <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Louvores" class="w-full h-52 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-semibold text-primary mb-4">🎵 Pesquisar e Baixar Louvores</h3>
+                    <input type="text" id="pesquisaLouvor" placeholder="Digite o nome ou trecho do louvor..." class="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
+                    <button onclick="pesquisarLouvor()" class="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-all shadow-md">Pesquisar</button>
+                    <div id="resultadoLouvor" class="mt-6 space-y-3">
+                        <p class="text-gray-600 italic">Alguns exemplos disponíveis:</p>
+                        <ul class="space-y-2">
+                            <li class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                                <span>🎶 A Ele a Glória</span>
+                                <a href="#" class="text-secondary font-medium hover:underline">Baixar</a>
+                            </li>
+                            <li class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                                <span>🎶 Deus é Fiel</span>
+                                <a href="#" class="text-secondary font-medium hover:underline">Baixar</a>
+                            </li>
+                            <li class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
+                                <span>🎶 Grande é o Senhor</span>
+                                <a href="#" class="text-secondary font-medium hover:underline">Baixar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Bíblia Online -->
+                <div class="bg-soft p-7 rounded-xl shadow hover-lift transition-all">
+                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bíblia Sagrada" class="w-full h-52 object-cover rounded-lg mb-6 shadow-md">
+                    <h3 class="text-2xl font-semibold text-secondary mb-4">📖 Bíblia Online</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-5">
+                        <select id="livro" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50">
+                            <option value="">Escolha o Livro</option>
+                            <option value="genesis">Gênesis</option>
+                            <option value="salmos">Salmos</option>
+                            <option value="jeremias">Jeremias</option>
+                            <option value="mateus">Mateus</option>
+                            <option value="joao">João</option>
+                            <option value="romanos">Romanos</option>
+                            <option value="apocalipse">Apocalipse</option>
+                        </select>
+                        <input type="number" id="capitulo" placeholder="Capítulo" min="1" class="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/50">
+                    </div>
+                    <button onclick="buscarVersiculo()" class="bg-secondary text-white px-6 py-3 rounded-lg hover:bg-secondary/90 transition-all shadow-md">Ler Palavra</button>
+                    <div id="textoBiblia" class="mt-6 p-5 bg-white rounded-lg border-l-4 border-primary italic text-gray-700 shadow-sm">
+                        “Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais.”<br>
+                        <span class="text-right block mt-2 font-semibold text-primary">— Jeremias 29:11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Caça-Palavras Evangélico -->
+    <section id="jogos" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-5 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 text-dark">🎮 Caça-Palavras Evangélico</h2>
+            <p class="max-w-2xl mx-auto mb-8 text-gray-600 text-lg">
+                Encontre as palavras relacionadas à nossa fé: <strong class="text-primary">JESUS, GRAÇA, FÉ, AMOR, SALVAÇÃO, BÍBLIA, ORAÇÃO, ESPERANÇA</strong>
+            </p>
+
+            <div id="tabuleiro" class="inline-block bg-white p-6 rounded-xl shadow-xl text-2xl font-mono tracking-wider mb-8">
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">A</span><span class="palavra">J</span><span class="palavra">E</span><span class="palavra">S</span><span class="palavra">U</span><span class="palavra">S</span><span class="palavra">X</span><span class="palavra">Y</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">G</span><span class="palavra">R</span><span class="palavra">A</span><span class="palavra">Ç</span><span class="palavra">A</span><span class="palavra">O</span><span class="palavra">M</span><span class="palavra">Q</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">F</span><span class="palavra">É</span><span class="palavra">M</span><span class="palavra">O</span><span class="palavra">R</span><span class="palavra">A</span><span class="palavra">M</span><span class="palavra">Z</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">A</span><span class="palavra">M</span><span class="palavra">O</span><span class="palavra">R</span><span class="palavra">Z</span><span class="palavra">Ç</span><span class="palavra">N</span><span class="palavra">L</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">S</span><span class="palavra">A</span><span class="palavra">L</span><span class="palavra">V</span><span class="palavra">A</span><span class="palavra">Ç</span><span class="palavra">Ã</span><span class="palavra">O</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">B</span><span class="palavra">Í</span><span class="palavra">B</span><span class="palavra">L</span><span class="palavra">I</span><span class="palavra">A</span><span class="palavra">K</span><span class="palavra">W</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">O</span><span class="palavra">R</span><span class="palavra">A</span><span class="palavra">Ç</span><span class="palavra">Ã</span><span class="palavra">O</span><span class="palavra">L</span><span class="palavra">P</span>
+                </div>
+                <div class="flex gap-1 my-1">
+                    <span class="palavra">E</span><span class="palavra">S</span><span class="palavra">P</span><span class="palavra">E</span><span class="palavra">R</span><span class="palavra">A</span><span class="palavra">N</span><span class="palavra">Ç</span><span class="palavra">A</span>
+                </div>
+            </div>
+            <p class="text-gray-500">Clique nas letras para marcar as palavras encontradas ✨</p>
+        </div>
+    </section>
+
+    <!-- Espaço para Patrocínios -->
+    <section id="patrocinio" class="py-16 bg-white">
+        <div class="container mx-auto px-5 text-center">
+            <h2 class="text-3xl font-bold mb-4 text-dark">🤝 Apoio e Parcerias</h2>
+            <p class="max-w-3xl mx-auto text-gray-600 mb-10 text-lg">
+                Este espaço está reservado para parceiros e patrocinadores que desejam apoiar a obra do Senhor e a divulgação do Evangelho. Se você tem interesse em colaborar, entre em contato conosco.
+            </p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-gray-400 hover:border-primary transition-all">
+                    <p class="text-lg">Espaço para Patrocinador 1</p>
+                </div>
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-gray-400 hover:border-primary transition-all">
+                    <p class="text-lg">Espaço para Patrocinador 2</p>
+                </div>
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-gray-400 hover:border-primary transition-all">
+                    <p class="text-lg">Espaço para Patrocinador 3</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-16 bg-soft">
+        <div class="container mx-auto px-5 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-dark">Fale Conosco</h2>
+            <p class="text-lg text-gray-700 mb-2">📞 (21) 98858-7372</p>
+            <p class="text-lg text-gray-700">📧 contato@seuemail.com.br</p>
+        </div>
+    </section>
+
+    <!-- Rodapé com Crédito -->
+    <footer class="bg-dark text-white py-8 text-center">
+        <div class="container mx-auto px-5">
+            <p class="mb-2">&copy; 2026 _________________________ . Todos os direitos reservados.</p>
+            <p class="text-gray-300 italic">“O Senhor é o meu pastor, nada me faltará.” — Salmos 23:1</p>
+            <p class="mt-4 text-sm text-gray-400">Desenvolvido por <span class="text-primary font-medium">Nelson Fraga</span></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script>
-        function executarBusca() {
-            const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
-            if (campo && campo.value.trim() !== "") {
-                const termo = campo.value;
-                const urlBusca = "https://www.youtube.com/results?search_query=" + encodeURIComponent(termo);
-                window.open(urlBusca, '_blank');
+        // Menu Mobile
+        const menuBtn = document.getElementById('menuBtn');
+        const menuMobile = document.getElementById('menuMobile');
+        menuBtn.addEventListener('click', () => menuMobile.classList.toggle('hidden'));
+
+        // Marcar letras no caça-palavras
+        document.querySelectorAll('.palavra').forEach(letra => {
+            letra.addEventListener('click', () => letra.classList.toggle('selecionada'));
+        });
+
+        // Funções de exemplo
+        function pesquisarLouvor() {
+            const termo = document.getElementById('pesquisaLouvor').value.trim();
+            if (termo) {
+                alert(`Buscando por: "${termo}" — em breve teremos todos os resultados organizados aqui!`);
+            } else {
+                alert('Digite o nome do louvor para pesquisar.');
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() {
-            const campo = document.getElementById('campoPesquisa') || document.querySelector('input[type="text"]');
-            const botao = document.querySelector('button');
-            if (campo) {
-                campo.addEventListener("keypress", function(e) {
-                    if (e.key === "Enter") executarBusca();
-                });
+        function buscarVersiculo() {
+            const livro = document.getElementById('livro').value;
+            const cap = document.getElementById('capitulo').value;
+            if (livro && cap) {
+                document.getElementById('textoBiblia').innerHTML = `
+                    Leitura: <strong>${livro.toUpperCase()} ${cap}</strong><br><br>
+                    Em breve o texto completo será carregado aqui. Que a Palavra de Deus abençoe o seu coração!
+                `;
+            } else {
+                alert('Por favor, escolha o livro e digite o número do capítulo.');
             }
-            if (botao) {
-                botao.setAttribute("onclick", "executarBusca()");
-            }
-        });
+        }
     </script>
+
 </body>
 </html>
