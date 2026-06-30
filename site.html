@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assembléia de Deus Missão Mundial - ADMM Anchieta</title>
+    <title>Assembleia de Deus Missão Mundial - ADMM Anchieta</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
         }
 
         body {
@@ -154,7 +159,7 @@
 
         .grid-cultos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 2rem;
         }
 
@@ -258,21 +263,47 @@
             color: var(--texto-claro);
         }
 
+        .oracao-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 320px;
+        }
+
         .btn-whatsapp-oracao {
-            background-color: #25d366;
+            background-color: #1ebd59;
             color: white;
             padding: 0.8rem 1.5rem;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 4px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
             transition: background 0.3s;
+            justify-content: center;
         }
 
         .btn-whatsapp-oracao:hover {
-            background-color: #1ebd59;
+            background-color: #169e49;
+        }
+
+        .btn-email-oracao {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+            justify-content: center;
+        }
+
+        .btn-email-oracao:hover {
+            background-color: #2563eb;
         }
 
         .oracao-form {
@@ -355,6 +386,9 @@
                 flex-direction: column;
                 gap: 2rem;
             }
+            .oracao-buttons {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -374,13 +408,13 @@
     </header>
 
     <section id="inicio" class="hero">
-        <h1>Assembléia de Deus Missão Mundial</h1>
+        <h1>Assembleia de Deus Missão Mundial</h1>
         <p>Um lugar de fé, esperança e amor. Seja bem-vindo à nossa congregação em Anchieta, liderada pelo Pastor André Costa da Silva.</p>
         <a href="#cultos" class="cta-button">Conheça nossos cultos</a>
     </section>
 
     <section id="cultos" class="cultos">
-        <h2 class="section-title">Nessas Reuniões</h2>
+        <h2 class="section-title">Nossas Reuniões</h2>
         <div class="grid-cultos">
             <div class="card-culto">
                 <div class="dia">Terça-Feira</div>
@@ -392,10 +426,17 @@
                 <div class="dia">Quinta-Feira</div>
                 <h3>Culto de Libertação</h3>
                 <div class="horario">19h00 às 21h00</div>
-                <p>Uma noite de oração fervorosa e manifestação do power de Jesus.</p>
+                <p>Uma noite de oração fervorosa e manifestação do poder de Jesus.</p>
+            </div>
+            <!-- Escola Bíblica Adicionada Aqui -->
+            <div class="card-culto">
+                <div class="dia">Domingo Manhã</div>
+                <h3>Escola Bíblica Dominical</h3>
+                <div class="horario">09h00 às 11h00</div>
+                <p>Crescimento espiritual e aprendizado da Palavra para todas as idades.</p>
             </div>
             <div class="card-culto">
-                <div class="dia">Domingo</div>
+                <div class="dia">Domingo Noite</div>
                 <h3>Oração e Celebração</h3>
                 <div class="horario">18h00 às 20h30</div>
                 <p>Início com Clamor às 18h00. O Culto de Celebração acontece das 18h30 às 20h30.</p>
@@ -425,19 +466,25 @@
         <div class="oracao-info">
             <h2 class="section-title" style="text-align: left; margin-bottom: 1.5rem;">Podemos Orar por Você?</h2>
             <p>Nossa equipe pastoral e círculo de intercessão estão prontos para colocar a sua causa diante de Deus.</p>
-            <a href="https://wa.me/5521999990000" target="_blank" class="btn-whatsapp-oracao">
-                💬 Chamar no WhatsApp Pastoral
-            </a>
+            
+            <div class="oracao-buttons">
+                <a href="https://wa.me/5521988587372" target="_blank" class="btn-whatsapp-oracao">
+                    💬 WhatsApp Pastoral
+                </a>
+                <a href="mailto:nelsonfraga77@gmail.com?subject=Pedido%20de%20Oração" class="btn-email-oracao">
+                    ✉️ Enviar por E-mail
+                </a>
+            </div>
         </div>
         <div class="oracao-form">
-            <form action="#">
+            <form action="mailto:nelsonfraga77@gmail.com" method="post" enctype="text/plain">
                 <div class="form-group">
-                    <label>Seu Nome Completo</label>
-                    <input type="text" placeholder="Ex: João Silva" required>
+                    <label for="nome">Seu Nome Completo</label>
+                    <input type="text" id="nome" name="Nome" placeholder="Ex: João Silva" required>
                 </div>
                 <div class="form-group">
-                    <label>Seu Pedido de Oração</label>
-                    <textarea rows="4" placeholder="Escreva aqui seus motivos de oração..." required></textarea>
+                    <label for="pedido">Seu Pedido de Oração</label>
+                    <textarea id="pedido" name="Pedido" rows="4" placeholder="Escreva aqui seus motivos de oração..." required></textarea>
                 </div>
                 <button type="submit" class="btn-submit">Enviar Pedido</button>
             </form>
@@ -456,13 +503,14 @@
                 <p>Anchieta - Rio de Janeiro - RJ</p>
             </div>
             <div class="footer-col">
-                <h4>Redes Sociais</h4>
-                <p>WhatsApp: (21) 99999-0000</p>
+                <h4>Redes Sociais e Contato</h4>
+                <p>WhatsApp: (21) 98858-7372</p>
+                <p>E-mail: nelsonfraga77@gmail.com</p>
                 <p>Instagram: @admm.anchieta</p>
             </div>
         </div>
         <div class="copyright">
-            &copy; 2026 Assembléia de Deus Missão Mundial. Todos os direitos reservados.
+            &copy; 2026 Assembleia de Deus Missão Mundial. Todos os direitos reservados.
         </div>
     </footer>
 
