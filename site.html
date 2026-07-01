@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assembleia de Deus Missão Mundial - ADMM Anchieta</title>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Biblioteca Geradora de QR Code -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
         :root {
@@ -19,6 +26,8 @@
             --cinza-claro: #f8fafc;
             --texto-escuro: #334155;
             --texto-claro: #94a3b8;
+            --verde-status: #10b981;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         * {
@@ -61,13 +70,19 @@
         .logo-text-nav {
             font-family: 'Playfair Display', serif;
             color: var(--branco);
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             font-weight: 700;
             letter-spacing: 1px;
+            text-decoration: none;
         }
 
         .logo-text-nav span {
             color: var(--dourado);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         nav a {
@@ -75,7 +90,7 @@
             text-decoration: none;
             margin-left: 2rem;
             font-size: 0.95rem;
-            font-weight: 400;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
@@ -83,8 +98,47 @@
             color: var(--dourado);
         }
 
+        .menu-toggle {
+            display: none;
+            color: var(--branco);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .status-badge {
+            background-color: rgba(255,255,255,0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--branco);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #64748b;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-dot.online {
+            background-color: var(--verde-status);
+            box-shadow: 0 0 8px var(--verde-status);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
         .hero {
-            height: 75vh;
+            height: 85vh;
             background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
                         url('https://images.unsplash.com/photo-1438029071396-1e831a7fa6d8?q=80&w=1920') no-repeat center center/cover;
             display: flex;
@@ -92,30 +146,48 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
             margin-top: 70px;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             color: var(--branco);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            max-width: 900px;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: var(--texto-claro);
             max-width: 650px;
-            margin-bottom: 2.5rem;
+            margin-bottom: 1.5rem;
             font-weight: 300;
+        }
+
+        .countdown-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--branco);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .countdown-container strong {
+            color: var(--dourado);
         }
 
         .cta-button {
             background-color: var(--dourado);
             color: var(--azul-escuro);
-            padding: 0.8rem 2rem;
+            padding: 0.9rem 2.2rem;
             text-decoration: none;
             font-weight: 600;
             border-radius: 4px;
@@ -124,15 +196,17 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(197, 168, 128, 0.2);
         }
 
         .cta-button:hover {
             background-color: var(--dourado-hover);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 168, 128, 0.3);
         }
 
         section {
-            padding: 5rem 10%;
+            padding: 6rem 10%;
         }
 
         .section-title {
@@ -140,17 +214,17 @@
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             color: var(--azul-escuro);
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             position: relative;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 50px;
+            width: 60px;
             height: 2px;
             background-color: var(--dourado);
-            margin: 10px auto 0;
+            margin: 15px auto 0;
         }
 
         .cultos {
@@ -159,17 +233,17 @@
 
         .grid-cultos {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 2rem;
         }
 
         .card-culto {
             background: var(--branco);
-            padding: 2.5rem;
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            padding: 2.5rem 2rem;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
             border-top: 4px solid var(--azul-escuro);
-            transition: transform 0.3s;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
         .card-culto:hover {
@@ -178,8 +252,8 @@
         }
 
         .card-culto h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.35rem;
+            margin-bottom: 0.7rem;
             color: var(--azul-escuro);
         }
 
@@ -190,13 +264,16 @@
             font-size: 0.85rem;
             letter-spacing: 1px;
             margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .card-culto .horario {
             color: var(--texto-escuro);
             font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.15rem;
+            margin-bottom: 1rem;
         }
 
         .sobre {
@@ -212,33 +289,61 @@
         .sobre-content p {
             margin-bottom: 1.5rem;
             color: var(--texto-escuro);
-            font-size: 1.05rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .lideranca-container {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .lideranca-card {
-            flex: 1;
             background: var(--cinza-claro);
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
             border-left: 4px solid var(--dourado);
+        }
+
+        .lideranca-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: var(--azul-medio);
+            color: var(--dourado);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
         }
 
         .lideranca-info h4 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--azul-escuro);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
         }
 
         .lideranca-info .cargo {
             color: var(--dourado);
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
-            margin-bottom: 1rem;
+        }
+
+        .cnpj-info {
+            font-size: 0.8rem;
+            color: var(--texto-claro);
+            margin-top: 1rem;
+            text-align: center;
         }
 
         .oracao {
@@ -258,7 +363,7 @@
         }
 
         .oracao-info p {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             font-size: 1.1rem;
             color: var(--texto-claro);
         }
@@ -270,40 +375,37 @@
             max-width: 320px;
         }
 
-        .btn-whatsapp-oracao {
-            background-color: #1ebd59;
-            color: white;
-            padding: 0.8rem 1.5rem;
+        .btn-contact {
+            padding: 0.9rem 1.5rem;
             text-decoration: none;
             font-weight: 700;
             border-radius: 4px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            transition: background 0.3s;
+            gap: 12px;
+            transition: background 0.3s, transform 0.2s;
             justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .btn-whatsapp-oracao {
+            background-color: #25d366;
+            color: white;
         }
 
         .btn-whatsapp-oracao:hover {
-            background-color: #169e49;
+            background-color: #20ba5a;
+            transform: translateY(-2px);
         }
 
         .btn-email-oracao {
             background-color: #3b82f6;
             color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: background 0.3s;
-            justify-content: center;
         }
 
         .btn-email-oracao:hover {
             background-color: #2563eb;
+            transform: translateY(-2px);
         }
 
         .oracao-form {
@@ -312,6 +414,7 @@
             padding: 3rem;
             border-radius: 8px;
             width: 100%;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
         .form-group {
@@ -323,15 +426,25 @@
             margin-bottom: 0.5rem;
             font-weight: 600;
             color: var(--azul-escuro);
+            font-size: 0.9rem;
         }
 
         .form-group input, 
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
+            padding: 0.9rem;
             border: 1px solid #e2e8f0;
             border-radius: 4px;
             font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            color: var(--azul-escuro);
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--dourado);
         }
 
         .btn-submit {
@@ -345,16 +458,44 @@
             cursor: pointer;
             border-radius: 4px;
             transition: background 0.3s;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
         }
 
         .btn-submit:hover {
             background-color: var(--azul-medio);
         }
 
-        footer {
+        .qrcode-section {
             background-color: var(--cinza-claro);
+            text-align: center;
+        }
+
+        .qrcode-box {
+            background: var(--branco);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        #canvas-qrcode {
+            margin: 0 auto 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .qrcode-section p {
+            max-width: 500px;
+            margin: 0 auto 1rem;
             color: var(--texto-escuro);
-            padding: 4rem 10% 2rem;
+        }
+
+        footer {
+            background-color: var(--azul-escuro);
+            color: var(--branco);
+            padding: 5rem 10% 2rem;
         }
 
         .footer-grid {
@@ -365,30 +506,66 @@
 
         .footer-col h4 {
             font-family: 'Playfair Display', serif;
-            color: var(--azul-escuro);
+            color: var(--dourado);
             margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--texto-claro);
+        }
+
+        .footer-col a {
+            color: var(--branco);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--dourado);
         }
 
         .copyright {
             text-align: center;
-            border-top: 1px solid #e2e8f0;
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
             font-size: 0.85rem;
             color: var(--texto-claro);
         }
 
+        @media (max-width: 992px) {
+            header { padding: 1rem 5%; }
+            section { padding: 5rem 5%; }
+            .hero h1 { font-size: 2.8rem; }
+            .sobre { flex-direction: column; gap: 3rem; }
+            .lideranca-container { width: 100%; }
+        }
+
         @media (max-width: 768px) {
+            .menu-toggle { display: block; }
             nav {
                 display: none;
-            }
-            .sobre, .oracao {
                 flex-direction: column;
-                gap: 2rem;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--azul-escuro);
+                padding: 1.5rem 0;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
-            .oracao-buttons {
-                max-width: 100%;
-            }
+            nav.active { display: flex; }
+            nav a { margin: 1rem 0; font-size: 1.1rem; width: 100%; text-align: center; }
+            .oracao { flex-direction: column; gap: 3rem; }
+            .oracao-buttons { max-width: 100%; }
+            .oracao-form { padding: 2rem 1.5rem; }
+            .lideranca-card { flex-direction: column; text-align: center; }
+            .qrcode-section { display: none; }
         }
     </style>
 </head>
@@ -396,9 +573,18 @@
 
     <header>
         <div class="logo-container">
-            <div class="logo-text-nav">ADMM<span>.</span></div>
+            <a href="#inicio" class="logo-text-nav">ADMM<span>.</span></a>
         </div>
-        <nav>
+        
+        <div class="status-badge">
+            <span class="status-dot" id="status-indicador"></span>
+            <span id="status-texto">Verificando...</span>
+        </div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <nav id="nav-menu">
             <a href="#inicio">Início</a>
             <a href="#cultos">Cultos</a>
             <a href="#sobre">Liderança</a>
@@ -410,33 +596,38 @@
     <section id="inicio" class="hero">
         <h1>Assembleia de Deus Missão Mundial</h1>
         <p>Um lugar de fé, esperança e amor. Seja bem-vindo à nossa congregação em Anchieta, liderada pelo Pastor André Costa da Silva.</p>
+        
+        <div class="countdown-container">
+            <i class="fa-regular fa-clock"></i>
+            <span id="contador-texto">Calculando próximo culto...</span>
+        </div>
+
         <a href="#cultos" class="cta-button">Conheça nossos cultos</a>
     </section>
 
     <section id="cultos" class="cultos">
         <h2 class="section-title">Nossas Reuniões</h2>
         <div class="grid-cultos">
-            <div class="card-culto">
-                <div class="dia">Terça-Feira</div>
+            <div class="card-culto" id="culto-terca">
+                <div class="dia"><i class="fa-regular fa-calendar-days"></i> Terça-Feira</div>
                 <h3>Culto de Doutrina</h3>
                 <div class="horario">19h00 às 21h00</div>
                 <p>Fortalecimento na fé através do estudo profundo da Palavra de Deus.</p>
             </div>
-            <div class="card-culto">
-                <div class="dia">Quinta-Feira</div>
+            <div class="card-culto" id="culto-quinta">
+                <div class="dia"><i class="fa-regular fa-calendar-days"></i> Quinta-Feira</div>
                 <h3>Culto de Libertação</h3>
                 <div class="horario">19h00 às 21h00</div>
                 <p>Uma noite de oração fervorosa e manifestação do poder de Jesus.</p>
             </div>
-            <!-- Escola Bíblica Adicionada Aqui -->
-            <div class="card-culto">
-                <div class="dia">Domingo Manhã</div>
+            <div class="card-culto" id="culto-domingom">
+                <div class="dia"><i class="fa-regular fa-calendar-days"></i> Domingo Manhã</div>
                 <h3>Escola Bíblica Dominical</h3>
                 <div class="horario">09h00 às 11h00</div>
-                <p>Crescimento espiritual e aprendizado da Palavra para todas as idades.</p>
+                <p>Crescimento espiritual e aprendizado da Palavra para todas as idades, sob a direção do <strong>Pr. Edilson Ramos Neves</strong>.</p>
             </div>
-            <div class="card-culto">
-                <div class="dia">Domingo Noite</div>
+            <div class="card-culto" id="culto-domingon">
+                <div class="dia"><i class="fa-regular fa-calendar-days"></i> Domingo Noite</div>
                 <h3>Oração e Celebração</h3>
                 <div class="horario">18h00 às 20h30</div>
                 <p>Início com Clamor às 18h00. O Culto de Celebração acontece das 18h30 às 20h30.</p>
@@ -451,12 +642,30 @@
                 <p>Nossa igreja é guiada por uma liderança totalmente comprometida com a sã doutrina, o cuidado com as famílias e o trabalho missionário relevante.</p>
                 <p>Aqui, você encontrará uma liderança de braços abertos para ouvir, aconselhar e interceder pelas suas lutas e vitórias.</p>
             </div>
-            <div class="lideranca-card">
-                <div class="lideranca-info">
-                    <h4>Pr. André Costa da Silva</h4>
-                    <p class="cargo">Pastor Presidente</p>
-                    <p style="font-size: 0.9rem; color: var(--texto-escuro);">Assembleia de Deus Missão Mundial<br>Congregação: Matriz</p>
-                    <p style="font-size: 0.8rem; color: var(--texto-claro); margin-top: 10px;">CNPJ: 58.345.367/0001-27</p>
+            <div class="lideranca-container">
+                <div class="lideranca-card">
+                    <div class="lideranca-avatar">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="lideranca-info">
+                        <h4>Pr. André Costa da Silva</h4>
+                        <p class="cargo">Pastor Presidente</p>
+                    </div>
+                </div>
+
+                <div class="lideranca-card">
+                    <div class="lideranca-avatar">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div class="lideranca-info">
+                        <h4>Pr. Edilson Ramos Neves</h4>
+                        <p class="cargo">Pastor Vice-Presidente</p>
+                    </div>
+                </div>
+
+                <div class="cnpj-info">
+                    <p><strong>Assembleia de Deus Missão Mundial</strong> - Congregação: Matriz</p>
+                    <p style="margin-top: 4px; color: var(--texto-escuro);">CNPJ: 58.345.367/0001-27</p>
                 </div>
             </div>
         </div>
@@ -468,26 +677,36 @@
             <p>Nossa equipe pastoral e círculo de intercessão estão prontos para colocar a sua causa diante de Deus.</p>
             
             <div class="oracao-buttons">
-                <a href="https://wa.me/5521988587372" target="_blank" class="btn-whatsapp-oracao">
-                    💬 WhatsApp Pastoral
+                <a href="https://wa.me/5521988587372" target="_blank" class="btn-contact btn-whatsapp-oracao">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp Pastoral
                 </a>
-                <a href="mailto:nelsonfraga77@gmail.com?subject=Pedido%20de%20Oração" class="btn-email-oracao">
-                    ✉️ Enviar por E-mail
+                <a href="mailto:nelsonfraga77@gmail.com?subject=Pedido%20de%20Oração" class="btn-contact btn-email-oracao">
+                    <i class="fa-regular fa-envelope" style="font-size: 1.1rem;"></i> Enviar por E-mail
                 </a>
             </div>
         </div>
+        
         <div class="oracao-form">
-            <form action="mailto:nelsonfraga77@gmail.com" method="post" enctype="text/plain">
+            <form id="form-oracao-zap">
                 <div class="form-group">
                     <label for="nome">Seu Nome Completo</label>
-                    <input type="text" id="nome" name="Nome" placeholder="Ex: João Silva" required>
+                    <input type="text" id="nome" placeholder="Ex: João Silva" required>
                 </div>
                 <div class="form-group">
                     <label for="pedido">Seu Pedido de Oração</label>
-                    <textarea id="pedido" name="Pedido" rows="4" placeholder="Escreva aqui seus motivos de oração..." required></textarea>
+                    <textarea id="pedido" rows="4" placeholder="Escreva aqui seus motivos de oração..." required></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Enviar Pedido</button>
+                <button type="submit" class="btn-submit">Enviar via WhatsApp</button>
             </form>
+        </div>
+    </section>
+
+    <section class="qrcode-section">
+        <h2 class="section-title">Acesse no Celular</h2>
+        <p>Está navegando pelo computador? Aponte a câmera do seu celular para o código abaixo para abrir nosso site diretamente no seu smartphone e compartilhar com a família!</p>
+        <div class="qrcode-box">
+            <div id="canvas-qrcode"></div>
+            <strong style="color: var(--azul-escuro); font-size: 0.9rem;">ADMM ANCHIETA</strong>
         </div>
     </section>
 
@@ -495,18 +714,17 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>ADMM Anchieta</h4>
-                <p>Uma igreja viva para um Deus vivo.</p>
+                <p style="font-style: italic;">"Uma igreja viva para um Deus vivo."</p>
             </div>
             <div class="footer-col">
                 <h4>Endereço</h4>
-                <p>Rua Cardoso de Castro, 230</p>
-                <p>Anchieta - Rio de Janeiro - RJ</p>
+                <p><i class="fa-solid fa-location-dot" style="color: var(--dourado);"></i> <a href="https://maps.google.com/?q=Rua+Cardoso+de+Castro,+230,+Anchieta,+Rio+de+Janeiro" target="_blank">Rua Cardoso de Castro, 230<br>Anchieta - Rio de Janeiro - RJ</a></p>
             </div>
             <div class="footer-col">
                 <h4>Redes Sociais e Contato</h4>
-                <p>WhatsApp: (21) 98858-7372</p>
-                <p>E-mail: nelsonfraga77@gmail.com</p>
-                <p>Instagram: @admm.anchieta</p>
+                <p><i class="fa-brands fa-whatsapp" style="color: #25d366;"></i> <a href="https://wa.me/5521988587372" target="_blank">(21) 98858-7372</a></p>
+                <p><i class="fa-regular fa-envelope" style="color: #3b82f6;"></i> <a href="mailto:nelsonfraga77@gmail.com">nelsonfraga77@gmail.com</a></p>
+                <p><i class="fa-brands fa-instagram" style="color: #e1306c;"></i> <a href="https://instagram.com/admm.anchieta" target="_blank">@admm.anchieta</a></p>
             </div>
         </div>
         <div class="copyright">
@@ -514,5 +732,119 @@
         </div>
     </footer>
 
+    <script>
+        // LINK OFICIAL VINCULADO FIXO
+        const LINK_DO_SEU_SITE = "https://nelsonfraga77-dot.github.io/portalrj48/site.html"; 
+
+        // Inicialização estática do QR Code vinculado
+        new QRCode(document.getElementById("canvas-qrcode"), {
+            text: LINK_DO_SEU_SITE,
+            width: 160,
+            height: 160,
+            colorDark : "#0f172a", 
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        // Menu Mobile Toggle
+        const menuToggle = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => { navMenu.classList.toggle('active'); });
+        document.querySelectorAll('#nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); }); });
+
+        // Envio do formulário via WhatsApp
+        document.getElementById('form-oracao-zap').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const pedido = document.getElementById('pedido').value;
+            const numeroFone = "5521988587372"; 
+            
+            const textoMensagem = `Olá, gostaria de deixar um pedido de oração.%0A%0A*Nome:* ${encodeURIComponent(nome)}%0A*Pedido:* ${encodeURIComponent(pedido)}`;
+            const linkWhatsapp = `https://wa.me/${numeroFone}?text=${textoMensagem}`;
+            
+            window.open(linkWhatsapp, '_blank');
+        });
+
+        // Painel Inteligente de Status e Contador
+        function atualizarPainelIgreja() {
+            const agora = new Date();
+            const diaSemana = agora.getDay(); 
+            const horaAtual = agora.getHours();
+            const minAtual = agora.getMinutes();
+            const tempoEmMinutos = (horaAtual * 60) + minAtual;
+
+            let igrejaAberta = false;
+            let nomeCultoAtual = "";
+            let textoCronometro = "";
+
+            if (diaSemana === 2 && tempoEmMinutos >= 1140 && tempoEmMinutos <= 1260) {
+                igrejaAberta = true; nomeCultoAtual = "Culto de Doutrina";
+            }
+            else if (diaSemana === 4 && tempoEmMinutos >= 1140 && tempoEmMinutos <= 1260) {
+                igrejaAberta = true; nomeCultoAtual = "Culto de Libertação";
+            }
+            else if (diaSemana === 0 && tempoEmMinutos >= 540 && tempoEmMinutos <= 660) {
+                igrejaAberta = true; nomeCultoAtual = "Escola Bíblica Dominical";
+            }
+            else if (diaSemana === 0 && tempoEmMinutos >= 1080 && tempoEmMinutos <= 1230) {
+                igrejaAberta = true; nomeCultoAtual = "Culto de Oração e Celebração";
+            }
+
+            const indicador = document.getElementById('status-indicador');
+            const textoStatus = document.getElementById('status-texto');
+
+            if (igrejaAberta) {
+                indicador.className = "status-dot online";
+                textoStatus.innerText = `Acontecendo Agora: ${nomeCultoAtual}`;
+                textoCronometro = `Venha participar! O <strong>${nomeCultoAtual}</strong> está acontecendo neste momento.`;
+            } else {
+                indicador.className = "status-dot";
+                textoStatus.innerText = "Igreja Fechada agora";
+
+                let proximoNome = "";
+                let proximaHora = "";
+                let hojeTemCultoMaisTarde = false;
+
+                if (diaSemana === 0) {
+                    if (tempoEmMinutos < 540) {
+                        hojeTemCultoMaisTarde = true; proximoNome = "Escola Bíblica Dominical"; proximaHora = "Hoje às 09h";
+                    } else if (tempoEmMinutos < 1080) {
+                        hojeTemCultoMaisTarde = true; proximoNome = "Culto de Oração e Celebração"; proximaHora = "Hoje às 18h";
+                    } else {
+                        proximoNome = "Culto de Doutrina"; proximaHora = "Terça às 19h";
+                    }
+                } else if (diaSemana === 1) {
+                    proximoNome = "Culto de Doutrina"; proximaHora = "Terça às 19h";
+                } else if (diaSemana === 2) {
+                    if (tempoEmMinutos < 1140) {
+                        hojeTemCultoMaisTarde = true; proximoNome = "Culto de Doutrina"; proximaHora = "Hoje às 19h";
+                    } else {
+                        proximoNome = "Culto de Libertação"; proximaHora = "Quinta às 19h";
+                    }
+                } else if (diaSemana === 3) {
+                    proximoNome = "Culto de Libertação"; proximaHora = "Quinta às 19h";
+                } else if (diaSemana === 4) {
+                    if (tempoEmMinutos < 1140) {
+                        hojeTemCultoMaisTarde = true; proximoNome = "Culto de Libertação"; proximaHora = "Hoje às 19h";
+                    } else {
+                        proximoNome = "Escola Bíblica Dominical"; proximaHora = "Domingo às 09h";
+                    }
+                } else {
+                    proximoNome = "Escola Bíblica Dominical"; proximaHora = "Domingo às 09h";
+                }
+
+                if (hojeTemCultoMaisTarde) {
+                    textoCronometro = `Próxima Reunião: <strong>${proximaHora}</strong> (${proximoNome}).`;
+                } else {
+                    textoCronometro = `Próximo Culto: <strong>${proximoNome}</strong> (${proximaHora}).`;
+                }
+            }
+
+            document.getElementById('contador-texto').innerHTML = textoCronometro;
+        }
+
+        atualizarPainelIgreja();
+        setInterval(atualizarPainelIgreja, 30000);
+    </script>
 </body>
 </html>
